@@ -3,7 +3,7 @@ module github.com/yuncai836/oapi-codegen/v2
 go 1.20
 
 require (
-	github.com/getkin/kin-openapi v0.126.0
+	github.com/getkin/kin-openapi v0.125.0
 	github.com/stretchr/testify v1.9.0
 	golang.org/x/text v0.15.0
 	golang.org/x/tools v0.21.0
