@@ -84,7 +84,7 @@ type strictHandler struct {
         {{end}}{{/* range .Bodies */}}
 
         handler := func(ctx *gin.Context, request interface{}) (interface{}, error) {
-            return sh.ssi.{{.OperationId}}(ctx, request.({{$opid | ucFirst}}RequestObject))
+            return sh.ssi.{{.OperationId}}(ctx.Request().Context(), request.({{$opid | ucFirst}}RequestObject))
         }
         for _, middleware := range sh.middlewares {
             handler = middleware(handler, "{{.OperationId}}")
@@ -95,7 +95,16 @@ type strictHandler struct {
         if err != nil {
             ctx.Error(err)
             ctx.Status(http.StatusInternalServerError)
-        } else if validResponse, ok := response.({{$opid | ucFirst}}ResponseObject); ok {
+        } else if commonResponse,ok := response.(Response); ok {
+            var validResponse = new({{$opid | ucFirst}}ResponseObject)
+            validResponse.Code = commonResponse.Code
+            validResponse.Msg = commonResponse.Msg
+            validResponse.Data = commonResponse.Data
+            if err := validResponse.Visit{{$opid}}Response(ctx.Writer); err != nil {
+                ctx.Error(err)
+            }
+        }
+        else if validResponse, ok := response.({{$opid | ucFirst}}ResponseObject); ok {
             if err := validResponse.Visit{{$opid}}Response(ctx.Writer); err != nil {
                 ctx.Error(err)
             }
