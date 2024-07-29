@@ -1,10 +1,10 @@
-module github.com/oapi-codegen/oapi-codegen/v2/examples/minimal-server/stdhttp
+module github.com/yuncai836/oapi-codegen/v2/examples/minimal-server/stdhttp
 
 go 1.22
 
-replace github.com/oapi-codegen/oapi-codegen/v2 => ../../../
+replace github.com/yuncai836/oapi-codegen/v2 => ../../../
 
-require github.com/oapi-codegen/oapi-codegen/v2 v2.0.0-00010101000000-000000000000
+require github.com/yuncai836/oapi-codegen/v2 v2.0.0-00010101000000-000000000000
 
 require (
 	github.com/getkin/kin-openapi v0.126.0 // indirect
