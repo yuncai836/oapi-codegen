@@ -99,7 +99,6 @@ type strictHandler struct {
             var validResponse = new({{$opid | ucFirst}}200JSONResponse)
             validResponse.Code = commonResponse.Code
             validResponse.Msg = commonResponse.Msg
-            validResponse.Data = commonResponse.Data
             if err := validResponse.Visit{{$opid}}Response(ctx.Writer); err != nil {
                 ctx.Error(err)
             }
